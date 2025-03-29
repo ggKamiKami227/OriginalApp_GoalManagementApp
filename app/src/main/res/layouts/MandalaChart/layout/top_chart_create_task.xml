@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:text="@string/MandalaChart_bottomChart_title"
+        android:text="@string/MandalaChart_CreateTask_title"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +22,7 @@
         android:id="@+id/mandalaChart_bottomChart_explain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/MandalaChart_bottomChart_explain"
+        android:text="@string/MandalaChart_CreateTask_explain"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -181,11 +181,11 @@
         app:layout_constraintVertical_bias="0.9">
 
         <Button
-            android:id="@+id/button_chart_save"
+            android:id="@+id/button_next"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/Button_Save"
+            android:text="@string/Button_Next"
             android:textSize="15sp" />
 
         <Button
