@@ -1,4 +1,10 @@
+/*
+    目的クラスの基本となるクラス。これをスーパークラスとして、フレームワークごとにサブクラスを生成する
+ */
 package com.example.ver2.dataClass.purposeManagement;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -11,7 +17,8 @@ import java.util.Date;  //Date型はroomに非対応のため、コンバータ�
 import java.util.List;
 
 @Entity(tableName = "purposes")
-public class Purpose {
+@TypeConverters(Converters.class)
+public class Purpose implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int ID;
     private String name;
@@ -24,9 +31,9 @@ public class Purpose {
     private Date finishDate;
     private boolean state;
     //private List<Task> tasks; //サブクラスのほうでタスクを設定するからここでやると分からなくなるかもだから、いったん消す
-    private String type;    //MandalaChart or Memo
+    private PurposeType type;    //MandalaChart or Memo
 
-    public Purpose(int ID, String name, String description, Date createDate, Date startDate, Date finishDate, boolean state, List<Task> tasks, String type) {
+    public Purpose(int ID, String name, String description, Date createDate, Date startDate, Date finishDate, boolean state, List<Task> tasks, PurposeType type) {
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -117,7 +124,58 @@ public class Purpose {
     //    this.tasks = tasks;
     //}
 
-    public void setType(String type) {
+    public void setType(PurposeType type) {
         this.type = type;
     }
+
+    //Parcelableの実装
+    @Override
+    public void writeToParcel(Parcel dest, int flags){
+        dest.writeInt(ID);
+        dest.writeString(name);
+        dest.writeString(description);
+
+        //日にち：始めにインスタンス化する際はすべてnullだからnullの場合の初期値を設定する必要がある
+        Long createDateTimestamp = Converters.dateToTimestamp(createDate);
+        dest.writeLong(createDateTimestamp != null ? createDateTimestamp : 0L);
+
+        Long startDateTimestamp = Converters.dateToTimestamp(startDate);
+        dest.writeLong(startDateTimestamp != null ? startDateTimestamp : 0L);
+
+        Long finishDateTimestamp = Converters.dateToTimestamp(finishDate);
+        dest.writeLong(finishDateTimestamp != null ? finishDateTimestamp : 0L);
+
+        dest.writeByte((byte) (state ? 1 : 0));
+
+        dest.writeString(type == null ? null : type.name());
+    }
+
+    protected Purpose(Parcel in){
+    ID = in.readInt();
+    name = in.readString();
+    description = in.readString();
+        createDate = Converters.fromTimestamp(in.readLong());
+        startDate = Converters.fromTimestamp(in.readLong());
+        finishDate = Converters.fromTimestamp(in.readLong());
+        state = in.readByte() != 0;
+        String typeName = in.readString();
+        type = (typeName == null) ? null : PurposeType.valueOf(typeName);
+    }
+
+    @Override
+    public int describeContents(){
+        return 0;
+    }
+
+    public static final Creator<Purpose> CREATOR = new Creator<Purpose>(){
+        @Override
+        public Purpose createFromParcel(Parcel in){
+            return new Purpose(in);
+        }
+
+        @Override
+        public Purpose[] newArray(int size){
+            return new Purpose[size];
+        }
+    };
 }

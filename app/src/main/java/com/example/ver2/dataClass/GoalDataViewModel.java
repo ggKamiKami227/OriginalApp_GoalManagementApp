@@ -36,6 +36,7 @@ public class GoalDataViewModel extends AndroidViewModel {
     //データベースから取得したGoalオブジェクトを保持してUIに通知
     private final MutableLiveData<List<Goal>> allGoals = new MutableLiveData<>();
 
+    //引数のApplication：このアプリそのものを示していて、アプリケーションレベルのコンテキストやグローバルな状態へのアクセスを提供する。
     public GoalDataViewModel(Application application) {
         super(application);
         //データベースのインスタンスを取得

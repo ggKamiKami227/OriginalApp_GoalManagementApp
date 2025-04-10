@@ -1,11 +1,14 @@
 package com.example.ver2.dataClass.purposeManagement;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.ver2.dataClass.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Chart {
+public class Chart implements Parcelable {
     private int ID;
     private String goal;
     private List<Task> tasks;
@@ -62,4 +65,37 @@ public class Chart {
             this.tasks.remove(task);
         }
     }
+
+    //Parcel　の実装
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    @Override
+    public void writeToParcel(Parcel dest, int flags){
+        dest.writeInt(ID);
+        dest.writeString(goal);
+        dest.writeTypedList(tasks);
+        dest.writeByte((byte) (state ? 1 : 0));
+    }
+
+    protected Chart(Parcel in){
+        ID = in.readInt();
+        goal = in.readString();
+        tasks = in.createTypedArrayList(Task.CREATOR);
+        state = in.readByte() != 0;
+    }
+
+    public static final Creator<Chart> CREATOR = new Creator<Chart>(){
+        @Override
+        public Chart createFromParcel(Parcel in){
+            return new Chart(in);
+        }
+
+        @Override
+        public Chart[] newArray(int size){
+            return new Chart[size];
+        }
+    };
+
 }

@@ -8,7 +8,7 @@ public enum GoalType {
     SMART("SMART"),
     BENCHMARKING("benchmarking"),
     WILL_CAN_MUST("WillCanMust"),
-    MEMO_GOAL("メモ"),
+    MEMO_GOAL("メモ"), //これ日本語じゃないほうがいいかも
     GOAL("goal");
 
     private final String value;

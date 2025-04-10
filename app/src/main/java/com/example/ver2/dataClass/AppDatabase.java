@@ -1,6 +1,5 @@
 /*
     RoomDatabaseを継承した抽象クラス。データベースの定義とアクセスを提供
-
  */
 
 package com.example.ver2.dataClass;
@@ -23,8 +22,15 @@ import com.example.ver2.dataClass.goalManagement.SMART;
 import com.example.ver2.dataClass.goalManagement.SMARTDao;
 import com.example.ver2.dataClass.goalManagement.WillCanMust;
 import com.example.ver2.dataClass.goalManagement.WillCanMustDao;
+import com.example.ver2.dataClass.purposeManagement.MandalaChart;
+import com.example.ver2.dataClass.purposeManagement.MandalaChartDao;
+import com.example.ver2.dataClass.purposeManagement.MemoPurposeDao;
+import com.example.ver2.dataClass.purposeManagement.Memo_Purpose;
+import com.example.ver2.dataClass.purposeManagement.Purpose;
+import com.example.ver2.dataClass.purposeManagement.PurposeDao;
 
-@Database(entities = {Goal.class,WillCanMust.class, SMART.class, Memo_Goal.class, Benchmarking.class}, version = 5, exportSchema = false)
+// 2025/04/10 Purposeを追加しバージョンアップ:6
+@Database(entities = {Goal.class,WillCanMust.class, SMART.class, Memo_Goal.class, Benchmarking.class, Purpose.class, MandalaChart.class, Memo_Purpose.class}, version = 6, exportSchema = false)
 @TypeConverters({Converters.class}) // TypeConverter を指定
 public abstract class AppDatabase extends RoomDatabase {
     public abstract GoalDao goalDao();
@@ -32,6 +38,10 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract SMARTDao smartDao();
     public abstract BenchmarkingDao benchmarkingDao();
     public abstract MemoGoalDao memoGoalDao();
+
+    public abstract PurposeDao purposeDao();
+    public abstract MandalaChartDao mandalaChartDao();
+    public abstract MemoPurposeDao memoPurposeDao();
 
     private static volatile AppDatabase INSTANCE;
 

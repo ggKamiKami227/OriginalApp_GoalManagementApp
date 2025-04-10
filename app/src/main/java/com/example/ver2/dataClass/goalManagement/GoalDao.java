@@ -22,7 +22,7 @@ public interface GoalDao {
     @Delete
     void delete(Goal goal);
 
-    // 指定されたGoalオブジェクトをidを使用してデータベースから削除
+    // 指定されたGoalオブジェクトをidを使用してデータベースから削除(ワンちゃんこのidが大文字小文字でバグがあるかも)
     @Query("DELETE FROM goals WHERE id = :id")
     void deleteById(int id);
 

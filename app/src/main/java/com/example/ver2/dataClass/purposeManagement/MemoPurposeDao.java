@@ -21,6 +21,10 @@ public interface MemoPurposeDao {
     @Delete
     void delete(Memo_Purpose memoPurpose);
 
+    //　指定されたMemo_Purposeオブジェクトをデータベースから削除
+    @Query("DELETE FROM mandala_charts WHERE id = :id")
+    void deleteById(int id);
+
     // データベース内のすべてのMemo_Purposeオブジェクトを取得
     @Query("SELECT * FROM memo_purposes")
     List<Memo_Purpose> getAllMemoPurposes();
