@@ -43,7 +43,14 @@ public class MandalaChartTopActivity extends AppCompatActivity {
             }
         });
 
-        //前のActivity（Create）
+        //前のActivity（CreatePurposeChooseFrameworkActivity）へ遷移を行う
         Button backButton = findViewById(R.id.button_back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent_before = new Intent(MandalaChartTopActivity.this, CreatePurposeChooseFrameworkActivity.class);
+                startActivity(intent_before);
+            }
+        });
     }
 }

@@ -7,6 +7,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -33,8 +34,7 @@ public class Purpose implements Parcelable {
     //private List<Task> tasks; //サブクラスのほうでタスクを設定するからここでやると分からなくなるかもだから、いったん消す
     private PurposeType type;    //MandalaChart or Memo
 
-    public Purpose(int ID, String name, String description, Date createDate, Date startDate, Date finishDate, boolean state, List<Task> tasks, PurposeType type) {
-        this.ID = ID;
+    public Purpose(String name, String description, Date createDate, Date startDate, Date finishDate, boolean state, List<Task> tasks, PurposeType type) {
         this.name = name;
         this.description = description;
         this.createDate = createDate;
@@ -43,6 +43,32 @@ public class Purpose implements Parcelable {
         this.state = state;
         //this.tasks = tasks;
         this.type = type;
+    }
+
+    //Purposeを直接入れられた時のコンストラクタ
+    @Ignore
+    public Purpose(Purpose purpose){
+        this.name = purpose.getName();
+        this.description = purpose.getDescription();
+        this.createDate = purpose.getCreateDate();
+        this.startDate = purpose.getStartDate();
+        this.finishDate = purpose.getFinishDate();
+        this.state = purpose.getState();
+        //this.tasks = tasks;
+        this.type = purpose.getType();
+    }
+
+    //全部nullで初期化する際のコンストラクタを明示する
+    @Ignore
+    public Purpose(){
+        this.name = null;
+        this.description = null;
+        this.createDate = null;
+        this.startDate = null;
+        this.finishDate = null;
+        this.state = false;
+        //もしかしたらここでTypeのエラーが出るかも
+        this.type = null;
     }
 
     @Override
@@ -87,6 +113,8 @@ public class Purpose implements Parcelable {
     public boolean getState() {
         return state;
     }
+
+    public PurposeType getType(){return type;}
 
     //public List<Task> getTasks() {
     //    return tasks;
