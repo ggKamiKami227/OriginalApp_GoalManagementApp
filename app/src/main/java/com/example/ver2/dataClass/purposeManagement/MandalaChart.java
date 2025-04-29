@@ -81,6 +81,28 @@ public class MandalaChart extends Purpose implements Parcelable {
         }
         goals.add(goal);
     }*/
+
+    public Chart getChartByID(int id) {
+        for (Chart chart : charts) {
+            if (chart.getID() == id) {
+                return chart;
+            }
+        }
+        return null; // ID に一致するチャートが見つからなかった場合は null を返す
+    }
+
+    //Chartの中身を変更するメソッド
+    public void updateChart(Chart chart){
+        for(Chart currentChart : charts){
+            if(currentChart.getID() == chart.getID()){
+                currentChart.setGoal(chart.getGoal());
+                currentChart.setTasks(chart.getTasks());
+                currentChart.setState(chart.isState());
+                break;
+            }
+        }
+    }
+
     public void addChart(Chart chart){
         if(charts == null){
             charts = new ArrayList<>();

@@ -136,7 +136,7 @@
     </androidx.gridlayout.widget.GridLayout>
 
     <EditText
-        android:id="@+id/purposeNameEditText"
+        android:id="@+id/goalNameEditText"
         android:layout_width="match_parent"
         android:layout_height="70sp"
         android:layout_marginStart="16dp"
@@ -162,13 +162,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.8">
 
-        <Button
+       <!--  ちょっとこれ必要か分からない。一応削除しておく
+       <Button
             android:id="@+id/button_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/Button_Save"
-            android:textSize="15sp" />
+            android:textSize="15sp" />　-->
 
     </LinearLayout>
 
