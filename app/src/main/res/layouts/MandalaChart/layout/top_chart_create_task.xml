@@ -133,23 +133,6 @@
 
     </androidx.gridlayout.widget.GridLayout>
 
-    <EditText
-        android:id="@+id/purposeNameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="70sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:autofillHints="@string/purpose_editTextHint"
-        android:hint="@string/goal_editTextHint"
-        android:inputType="text"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7" />
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -160,13 +143,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.8">
 
-        <Button
+    <!--    いるかわからない
+            <Button
             android:id="@+id/button_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/Button_Save"
-            android:textSize="15sp" />
+            android:textSize="15sp" /> -->
 
     </LinearLayout>
 
