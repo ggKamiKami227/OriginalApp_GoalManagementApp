@@ -1,3 +1,8 @@
+/*
+    MandalaChartでの3*3でのチャートを表すクラス。ID、goal, tasks, stateの変数がある
+    tasksのリストは合計で8つ（チャートの真ん中がgoal,周りがtasksという考え）で、それぞれ1~8のIDを割り振る
+    左上から1として右下が8として考えていく
+ */
 package com.example.ver2.dataClass.purposeManagement;
 
 import android.os.Parcel;
@@ -11,6 +16,7 @@ import java.util.List;
 public class Chart implements Parcelable {
     private int ID;
     private String goal;
+    //2025-05-07：Stringにしようか迷ったけど、TaskにしてID管理と化したほうがいいし、後々目標設定として使えるかもしれないのでこのままでいく。Nullとかのエラーに注意
     private List<Task> tasks;
     private boolean state;
 
@@ -51,6 +57,16 @@ public class Chart implements Parcelable {
 
     public void setState(boolean state) {
         this.state = state;
+    }
+
+    //IDで指定する
+    public Task getTaskById(int id){
+        for(Task task:tasks){
+            if(task.getID() == id){
+                return task;
+            }
+        }
+        return null;
     }
 
     public void addTask(Task task) {
