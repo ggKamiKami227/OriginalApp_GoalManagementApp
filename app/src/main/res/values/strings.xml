@@ -180,5 +180,8 @@
     <!-- CreateMandalaChart bottom_Chart-->
     <string name="MandalaChart_bottomChart_title">目標の達成に必要なタスクを考えて、マトリックスを埋めよう</string>
     <string name="MandalaChart_bottomChart_explain">入力する場所を押してタスクを入力しよう</string>
+    <!-- confirm_chart_overall -->
+    <string name="MandalaChart_confirm_overall_title">すべてのチャートの確認</string>
+
 
 </resources>

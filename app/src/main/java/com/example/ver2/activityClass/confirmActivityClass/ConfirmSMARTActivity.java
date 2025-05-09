@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.ver2.R;
 import com.example.ver2.dataClass.goalManagement.SMART;
 import com.example.ver2.fragmentClass.confirmFragments.ConfirmSMARTEditFragment;
-import com.example.ver2.fragmentClass.viewModels.ConfirmSMARTViewModel;
+import com.example.ver2.fragmentClass.viewModels.goalViewModels.ConfirmSMARTViewModel;
 
 public class ConfirmSMARTActivity extends AppCompatActivity {
     private TextView specificTextView;

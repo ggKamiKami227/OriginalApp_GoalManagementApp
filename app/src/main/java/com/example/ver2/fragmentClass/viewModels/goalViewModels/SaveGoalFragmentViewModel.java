@@ -1,4 +1,4 @@
-package com.example.ver2.fragmentClass.viewModels;
+package com.example.ver2.fragmentClass.viewModels.goalViewModels;
 
 import android.util.Log;
 

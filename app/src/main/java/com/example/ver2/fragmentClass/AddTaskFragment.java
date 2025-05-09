@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ver2.R;
 import com.example.ver2.dataClass.Task;
-import com.example.ver2.fragmentClass.viewModels.SaveGoalFragmentViewModel;
+import com.example.ver2.fragmentClass.viewModels.goalViewModels.SaveGoalFragmentViewModel;
 
 import java.util.Calendar;
 import java.util.Date;

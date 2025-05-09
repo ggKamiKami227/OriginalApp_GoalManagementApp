@@ -27,7 +27,7 @@ import com.example.ver2.dataClass.goalManagement.SMART;
 import com.example.ver2.dataClass.goalManagement.WillCanMust;
 import com.example.ver2.fragmentClass.confirmFragments.ConfirmGoalEditFragment;
 import com.example.ver2.fragmentClass.confirmFragments.ConfirmTaskFragment;
-import com.example.ver2.fragmentClass.viewModels.ConfirmGoalViewModel;
+import com.example.ver2.fragmentClass.viewModels.goalViewModels.ConfirmGoalViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

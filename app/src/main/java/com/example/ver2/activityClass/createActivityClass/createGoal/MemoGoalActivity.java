@@ -3,7 +3,7 @@
     このActivityの後はSaveGoalActivityで目標を保存する（目標の名前、詳細、作成日、開始日、終了日、タスクを入力するActivity）
  */
 
-package com.example.ver2.activityClass.createActivityClass;
+package com.example.ver2.activityClass.createActivityClass.createGoal;
 
 import android.content.Intent;
 import android.os.Bundle;

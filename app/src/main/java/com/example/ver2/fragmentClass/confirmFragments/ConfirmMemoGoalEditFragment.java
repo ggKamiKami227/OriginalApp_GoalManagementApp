@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ver2.R;
 import com.example.ver2.dataClass.goalManagement.Memo_Goal;
-import com.example.ver2.fragmentClass.viewModels.ConfirmMemoGoalViewModel;
+import com.example.ver2.fragmentClass.viewModels.goalViewModels.ConfirmMemoGoalViewModel;
 
 public class ConfirmMemoGoalEditFragment extends DialogFragment {
     private EditText memoEditText;

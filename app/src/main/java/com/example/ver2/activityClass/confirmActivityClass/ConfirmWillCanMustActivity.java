@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.ver2.R;
 import com.example.ver2.dataClass.goalManagement.WillCanMust;
 import com.example.ver2.fragmentClass.confirmFragments.ConfirmWillCanMustEditFragment;
-import com.example.ver2.fragmentClass.viewModels.ConfirmWillCanMustViewModel;
+import com.example.ver2.fragmentClass.viewModels.goalViewModels.ConfirmWillCanMustViewModel;
 
 public class ConfirmWillCanMustActivity extends AppCompatActivity {
     private TextView willTextView;

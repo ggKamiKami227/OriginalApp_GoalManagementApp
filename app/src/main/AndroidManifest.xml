@@ -27,22 +27,22 @@
             android:name=".activityClass.createActivityClass.CreateTopChooseActivity"
             android:exported="false"/>
         <activity
-            android:name=".activityClass.createActivityClass.CreateGoalChooseFrameworkActivity"
+            android:name=".activityClass.createActivityClass.createGoal.CreateGoalChooseFrameworkActivity"
             android:exported="false"/>
         <activity
-            android:name=".activityClass.createActivityClass.MemoGoalActivity"
+            android:name=".activityClass.createActivityClass.createGoal.MemoGoalActivity"
             android:exported="false"/>
         <activity
-            android:name=".activityClass.createActivityClass.SMARTActivity"
+            android:name=".activityClass.createActivityClass.createGoal.SMARTActivity"
             android:exported="false"/>
         <activity
-            android:name=".activityClass.createActivityClass.WillCanMustActivity"
+            android:name=".activityClass.createActivityClass.createGoal.WillCanMustActivity"
             android:exported="false"/>
         <activity
-            android:name=".activityClass.createActivityClass.BenchmarkingActivity"
+            android:name=".activityClass.createActivityClass.createGoal.BenchmarkingActivity"
             android:exported="false"/>
         <activity
-            android:name=".activityClass.createActivityClass.SaveGoalActivity"
+            android:name=".activityClass.createActivityClass.createGoal.SaveGoalActivity"
             android:exported="false"/>
         <activity
             android:name=".fragmentClass.AddTaskFragment"

@@ -2,10 +2,9 @@
     マンダラチャートの周りの3*3のチャートを完成させていくActivity。
     ボタンでCoreChartが構成されていて、設定したいChartのボタンを押すことで、Fragmentを表示し、そこで入力させる。
  */
-package com.example.ver2.activityClass.createActivityClass;
+package com.example.ver2.activityClass.createActivityClass.createPurpose;
 
 import android.content.Intent;
-import android.icu.util.BuddhistCalendar;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ver2.R;
 import com.example.ver2.dataClass.purposeManagement.MandalaChart;
-import com.example.ver2.fragmentClass.confirmFragments.MandalaChartBottomChartFragment;
+import com.example.ver2.fragmentClass.purposeFragment.MandalaChartBottomChartFragment;
 import com.example.ver2.fragmentClass.viewModels.MandalaChartBottomChartViewModel;
 
 import java.util.HashMap;

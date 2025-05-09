@@ -6,7 +6,7 @@
     Chartの中のTasksを最初に初期化するのはここかもしれないから、ここでしっかりと宣言しておく
  */
 
-package com.example.ver2.fragmentClass.confirmFragments;
+package com.example.ver2.fragmentClass.purposeFragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

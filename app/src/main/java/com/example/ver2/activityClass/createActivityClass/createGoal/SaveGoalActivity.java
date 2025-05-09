@@ -3,7 +3,7 @@
     名前、詳細、作成日（これは自動で）、開始日、終了日、タスク、これらを入力する
  */
 
-package com.example.ver2.activityClass.createActivityClass;
+package com.example.ver2.activityClass.createActivityClass.createGoal;
 
 import static android.content.ContentValues.TAG;
 
@@ -25,7 +25,7 @@ import com.example.ver2.dataClass.GoalDataViewModel;
 import com.example.ver2.dataClass.goalManagement.GoalType;
 import com.example.ver2.fragmentClass.AddTaskFragment;
 import com.example.ver2.R;
-import com.example.ver2.fragmentClass.viewModels.SaveGoalFragmentViewModel;
+import com.example.ver2.fragmentClass.viewModels.goalViewModels.SaveGoalFragmentViewModel;
 import com.example.ver2.dataClass.Task;
 import com.example.ver2.dataClass.goalManagement.Benchmarking;
 import com.example.ver2.dataClass.goalManagement.Goal;

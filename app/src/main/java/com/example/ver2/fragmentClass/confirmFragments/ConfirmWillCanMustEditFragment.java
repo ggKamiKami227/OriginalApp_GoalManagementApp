@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ver2.R;
 import com.example.ver2.dataClass.goalManagement.WillCanMust;
-import com.example.ver2.fragmentClass.viewModels.ConfirmWillCanMustViewModel;
+import com.example.ver2.fragmentClass.viewModels.goalViewModels.ConfirmWillCanMustViewModel;
 
 public class ConfirmWillCanMustEditFragment extends DialogFragment {
     private EditText willEditText;

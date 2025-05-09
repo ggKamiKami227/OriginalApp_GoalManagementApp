@@ -2,7 +2,7 @@
     マンダラチャートを利用した目的設定を行うActivity
     このActivityは説明を行っているActivityだが、作成途中のMandalaChartオブジェクトをこのActivityまで保持するようにしている
  */
-package com.example.ver2.activityClass.createActivityClass;
+package com.example.ver2.activityClass.createActivityClass.createPurpose;
 
 import android.content.Intent;
 import android.os.Bundle;

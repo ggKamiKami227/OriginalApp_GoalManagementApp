@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.ver2.R;
 import com.example.ver2.dataClass.goalManagement.Benchmarking;
 import com.example.ver2.fragmentClass.confirmFragments.ConfirmBenchmarkingEditFragment;
-import com.example.ver2.fragmentClass.viewModels.ConfirmBenchmarkingViewModel;
+import com.example.ver2.fragmentClass.viewModels.goalViewModels.ConfirmBenchmarkingViewModel;
 
 public class ConfirmBenchmarkingActivity extends AppCompatActivity {
     private TextView goalTextView;

@@ -2,7 +2,7 @@
     ConfirmWillCanMustActivityクラスにおいてFragmentとの情報を更新するためのViewModel
  */
 
-package com.example.ver2.fragmentClass.viewModels;
+package com.example.ver2.fragmentClass.viewModels.goalViewModels;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

@@ -2,7 +2,7 @@
     目的設定で使用するフレームワークを選択するActivity
  */
 
-package com.example.ver2.activityClass.createActivityClass;
+package com.example.ver2.activityClass.createActivityClass.createPurpose;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ver2.R;
+import com.example.ver2.activityClass.createActivityClass.CreateTopChooseActivity;
 
 public class CreatePurposeChooseFrameworkActivity extends AppCompatActivity {
     @Override

@@ -1,7 +1,7 @@
 /*
     マンダラチャートの真ん中の3*3のマトリックス（チャート）を決めるActivity
  */
-package com.example.ver2.activityClass.createActivityClass;
+package com.example.ver2.activityClass.createActivityClass.createPurpose;
 
 import android.content.Intent;
 import android.os.Bundle;

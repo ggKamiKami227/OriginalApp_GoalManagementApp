@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.ver2.R;
 import com.example.ver2.activityClass.MainActivity;
+import com.example.ver2.activityClass.createActivityClass.createGoal.CreateGoalChooseFrameworkActivity;
 
 public class CreateTopChooseActivity extends AppCompatActivity{
     @Override
