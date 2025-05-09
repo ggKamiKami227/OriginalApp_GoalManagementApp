@@ -55,7 +55,7 @@
         app:layout_row="1" />
 
     <Button
-        android:id="@+id/central_button"
+        android:id="@+id/button_center"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/square_button_background"

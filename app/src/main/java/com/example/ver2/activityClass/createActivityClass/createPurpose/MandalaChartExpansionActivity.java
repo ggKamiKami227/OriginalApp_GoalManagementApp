@@ -85,11 +85,10 @@ public class MandalaChartExpansionActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /* //2025-04-29 このあと、確認画面に移行するか、このまま保存画面に移行するか
-                Intent intent_next = new Intent(MandalaChartExpansionActivity.this, )
+                //確認画面に移行
+                Intent intent_next = new Intent(MandalaChartExpansionActivity.this, MandalaChartConfirmAllChartActivity.class);
                 intent_next.putExtra("MandalaChart",mandalaChart);
-                startActivity(intent_next);;
-                */
+                startActivity(intent_next);
             }
         });
 
@@ -157,7 +156,7 @@ public class MandalaChartExpansionActivity extends AppCompatActivity {
                 Integer chartId = entry.getKey();
                 Button button = entry.getValue();
                 if(mandalaChart.getChartByID(chartId) != null) {
-                    if (mandalaChart.getChartByID(chartId).getGoal() != null || !mandalaChart.getChartByID(chartId).getGoal().isEmpty()) {
+                    if (mandalaChart.getChartByID(chartId).getGoal() != null && !mandalaChart.getChartByID(chartId).getGoal().isEmpty()) {
                         button.setText(mandalaChart.getChartByID(chartId).getGoal());
                     } else {
                         button.setText(textNothing);

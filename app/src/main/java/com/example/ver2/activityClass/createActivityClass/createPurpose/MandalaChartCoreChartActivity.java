@@ -420,7 +420,7 @@ public class MandalaChartCoreChartActivity extends AppCompatActivity {
                 //ここで選択されているボタンの変更
                 buttonNumber = chartID;
                 if (mandalaChart.getChartByID(chartID) != null) {
-                    if (mandalaChart.getChartByID(chartID).getGoal() != null || !mandalaChart.getChartByID(chartID).getGoal().isEmpty()) {
+                    if (mandalaChart.getChartByID(chartID).getGoal() != null && !mandalaChart.getChartByID(chartID).getGoal().isEmpty()) {
                         goalEditText.setText(mandalaChart.getChartByID(chartID).getGoal());
                     } else {
                         goalEditText.setHint(textHint);
