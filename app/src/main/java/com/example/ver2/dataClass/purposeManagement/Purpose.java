@@ -34,7 +34,7 @@ public class Purpose implements Parcelable {
     //private List<Task> tasks; //サブクラスのほうでタスクを設定するからここでやると分からなくなるかもだから、いったん消す
     private PurposeType type;    //MandalaChart or Memo
 
-    public Purpose(String name, String description, Date createDate, Date startDate, Date finishDate, boolean state, List<Task> tasks, PurposeType type) {
+    public Purpose(String name, String description, Date createDate, Date startDate, Date finishDate, boolean state, PurposeType type) {
         this.name = name;
         this.description = description;
         this.createDate = createDate;
@@ -154,6 +154,23 @@ public class Purpose implements Parcelable {
 
     public void setType(PurposeType type) {
         this.type = type;
+    }
+
+    public boolean isPurposeExist() {
+        //存在している場合はtrue
+        return name != null && description != null && createDate != null &&
+                startDate != null && finishDate != null;
+    }
+
+    //Purposeオブジェクトの中身だけ変更したい場合に使用
+    public void updatePurpose(Purpose purpose){
+        this.name = purpose.getName();
+        this.description = purpose.getDescription();
+        this.createDate = purpose.getCreateDate();
+        this.startDate = purpose.getStartDate();
+        this.finishDate = purpose.getFinishDate();
+        this.state = purpose.getState();
+        this.type = purpose.getType();
     }
 
     //Parcelableの実装

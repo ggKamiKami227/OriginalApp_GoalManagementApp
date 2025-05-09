@@ -1,5 +1,5 @@
 /*
-    サブクラスの内容（フレームワーク五との内容）を前までのActivityで入力し、ここではGoalクラスの入力を行う
+    サブクラスの内容（フレームワークごとの内容）を前までのActivityで入力し、ここではGoalクラスの入力を行う
     名前、詳細、作成日（これは自動で）、開始日、終了日、タスク、これらを入力する
  */
 
@@ -280,7 +280,7 @@ public class SaveGoalActivity extends AppCompatActivity {
     }
 
     //goalオブジェクトに現在の入力をセットしてアップデートするメソッド
-    private void goalUpdate(){
+    private void goalUpdate() {
         //goalのアップデート
         String goalName = goalNameEditText.getText().toString();
         String goalDescription = goalDescriptionEditText.getText().toString();

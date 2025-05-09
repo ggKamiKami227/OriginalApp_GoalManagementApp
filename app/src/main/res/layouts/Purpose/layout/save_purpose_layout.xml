@@ -20,7 +20,7 @@
             android:padding="16dp">
 
             <EditText
-                android:id="@+id/goalNameEditText"
+                android:id="@+id/purposeNameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="70sp"
                 android:hint="@string/save_purpose_layout_editText_hint_name"
@@ -28,7 +28,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/goalDescriptionEditText"
+                android:id="@+id/purposeDescriptionEditText"
                 android:layout_width="match_parent"
                 android:layout_height="60sp"
                 android:hint="@string/save_purpose_layout_editText_hint_description"
@@ -64,14 +64,14 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/saveGoalButton"
+                    android:id="@+id/saveButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/save_goal_layout_saveButton" />
 
                 <Button
-                    android:id="@+id/backButton_saveGoallayout"
+                    android:id="@+id/backButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
