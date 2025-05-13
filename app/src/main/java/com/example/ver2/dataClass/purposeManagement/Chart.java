@@ -10,11 +10,16 @@ package com.example.ver2.dataClass.purposeManagement;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.core.text.util.LocalePreferences;
+import androidx.room.TypeConverters;
+
+import com.example.ver2.Converters;
 import com.example.ver2.dataClass.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@TypeConverters(Converters.class)
 public class Chart implements Parcelable {
     private int ID;
     private String goal;

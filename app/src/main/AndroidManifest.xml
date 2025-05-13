@@ -25,49 +25,70 @@
         <!-- 他のアクティビティの追加 -->
         <activity
             android:name=".activityClass.createActivityClass.CreateTopChooseActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activityClass.createActivityClass.createGoal.CreateGoalChooseFrameworkActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activityClass.createActivityClass.createGoal.MemoGoalActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activityClass.createActivityClass.createGoal.SMARTActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activityClass.createActivityClass.createGoal.WillCanMustActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activityClass.createActivityClass.createGoal.BenchmarkingActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activityClass.createActivityClass.createGoal.SaveGoalActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".fragmentClass.AddTaskFragment"
-            android:exported="false"/>
+            android:exported="false" />
+        <activity
+            android:name=".activityClass.createActivityClass.createPurpose.CreatePurposeChooseFrameworkActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activityClass.createActivityClass.createPurpose.MandalaChartTopActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activityClass.createActivityClass.createPurpose.MandalaChartPurposeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activityClass.createActivityClass.createPurpose.MandalaChartCoreChartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activityClass.createActivityClass.createPurpose.MandalaChartExpansionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activityClass.createActivityClass.createPurpose.MandalaChartConfirmAllChartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activityClass.createActivityClass.createPurpose.SavePurposeActivity"
+            android:exported="false" />
         <activity
             android:name=".activityClass.confirmActivityClass.ConfirmGoalListActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activityClass.confirmActivityClass.ConfirmTopChooseActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activityClass.confirmActivityClass.ConfirmBenchmarkingActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activityClass.confirmActivityClass.ConfirmGoalActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activityClass.confirmActivityClass.ConfirmMemoGoalActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activityClass.confirmActivityClass.ConfirmWillCanMustActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activityClass.confirmActivityClass.ConfirmSMARTActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
     </application>
 
