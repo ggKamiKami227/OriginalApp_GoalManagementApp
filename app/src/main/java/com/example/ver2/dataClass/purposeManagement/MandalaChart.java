@@ -9,7 +9,9 @@ import android.os.Parcelable;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.TypeConverters;
 
+import com.example.ver2.Converters;
 import com.example.ver2.dataClass.Task;
 
 import java.util.ArrayList;
@@ -21,11 +23,12 @@ public class MandalaChart extends Purpose implements Parcelable {
     private String purpose;
     //chartsについて、それぞれMandalaChartCoreChartActivityにて最初に作る時、それぞれに代入する
     //2025-04-22 今のところListで管理して、For文とか使って管理しようかなと
+    @TypeConverters(Converters.class)
     private List<Chart> charts;
 
     //Typeの設定を忘れなこと
-    public MandalaChart(int ID, String name, String description, Date createDate, Date startDate, Date finishDate, boolean state, List<Task> tasks, PurposeType type, List<Chart> charts) {
-        super(name, description, createDate, startDate, finishDate, state, tasks, type);
+    public MandalaChart(String name, String description, Date createDate, Date startDate, Date finishDate, boolean state, PurposeType type, String purpose, List<Chart> charts) {
+        super(name, description, createDate, startDate, finishDate, state, type);
         this.purpose = purpose;
         this.charts = charts;
     }

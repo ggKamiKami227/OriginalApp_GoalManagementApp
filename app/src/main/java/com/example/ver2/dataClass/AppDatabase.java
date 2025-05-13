@@ -30,7 +30,8 @@ import com.example.ver2.dataClass.purposeManagement.Purpose;
 import com.example.ver2.dataClass.purposeManagement.PurposeDao;
 
 // 2025/04/10 Purposeを追加しバージョンアップ:6
-@Database(entities = {Goal.class,WillCanMust.class, SMART.class, Memo_Goal.class, Benchmarking.class, Purpose.class, MandalaChart.class, Memo_Purpose.class}, version = 6, exportSchema = false)
+// 2025-05-13 PurposeのMandalaChartが一通り終わったため、ChartなどをtypeConverterを追加してバージョンアップ：7
+@Database(entities = {Goal.class,WillCanMust.class, SMART.class, Memo_Goal.class, Benchmarking.class, Purpose.class, MandalaChart.class, Memo_Purpose.class}, version = 7, exportSchema = false)
 @TypeConverters({Converters.class}) // TypeConverter を指定
 public abstract class AppDatabase extends RoomDatabase {
     public abstract GoalDao goalDao();

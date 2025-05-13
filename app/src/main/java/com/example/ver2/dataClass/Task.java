@@ -1,6 +1,7 @@
 /*
     GoalやPurposeに使用されるTaskクラス。これは単体ではデータベースに保存しない。
     Goalクラスなどに含まれて保存される
+    Listでこのクラスのオブジェクトを管理する場合、Convertersクラスに@TypeConverterが設定されている
  */
 
 package com.example.ver2.dataClass;

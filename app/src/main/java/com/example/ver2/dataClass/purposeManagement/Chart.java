@@ -2,6 +2,8 @@
     MandalaChartでの3*3でのチャートを表すクラス。ID、goal, tasks, stateの変数がある
     tasksのリストは合計で8つ（チャートの真ん中がgoal,周りがtasksという考え）で、それぞれ1~8のIDを割り振る
     左上から1として右下が8として考えていく
+    これはMandalaChartにてListとして登録するが、その際データベースに保存するにはTypeConverterを作らなくちゃいけない
+    Listでこのクラスのオブジェクトを管理する場合、Convertersクラスに@TypeConverterが設定されている
  */
 package com.example.ver2.dataClass.purposeManagement;
 

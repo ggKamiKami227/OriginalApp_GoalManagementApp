@@ -1,17 +1,23 @@
 package com.example.ver2.dataClass.purposeManagement;
 
 import androidx.room.Entity;
+import androidx.room.TypeConverters;
 
+import com.example.ver2.Converters;
 import com.example.ver2.dataClass.Task;
 import java.util.*;
 
 @Entity(tableName = "memo_purposes")
+@TypeConverters(Converters.class)
 public class Memo_Purpose extends Purpose{
+    @TypeConverters(Converters.class)
     private List<Task> tasks;
     private String memo; //いるかわからないけど一応
 
-    public Memo_Purpose(int ID, String name, String description, Date createDate, Date startDate, Date finishDate, boolean state, List<Task> tasks, String purpose, List<String> goals, List<Chart> charts) {
-        super(ID, name, description, createDate, startDate, finishDate, state, tasks, "Memo");
+    public Memo_Purpose(String name, String description, Date createDate, Date startDate, Date finishDate,boolean state, PurposeType type, List<Task> tasks, String memo) {
+        super(name, description, createDate, startDate, finishDate, state, type);
+        this.tasks = tasks;
+        this.memo = memo;
     }
 
     public List<Task> getTasks() {

@@ -32,6 +32,7 @@ public class Purpose implements Parcelable {
     private Date finishDate;
     private boolean state;
     //private List<Task> tasks; //サブクラスのほうでタスクを設定するからここでやると分からなくなるかもだから、いったん消す
+    @TypeConverters(Converters.class)
     private PurposeType type;    //MandalaChart or Memo
 
     public Purpose(String name, String description, Date createDate, Date startDate, Date finishDate, boolean state, PurposeType type) {

@@ -68,6 +68,7 @@
         <activity
             android:name=".activityClass.confirmActivityClass.ConfirmSMARTActivity"
             android:exported="false"/>
+
     </application>
 
 </manifest>
