@@ -86,6 +86,10 @@ public class MandalaChart extends Purpose implements Parcelable {
     }*/
 
     public Chart getChartByID(int id) {
+        if(charts == null)
+        {
+            return null;
+        }
         for (Chart chart : charts) {
             if (chart.getID() == id) {
                 return chart;
