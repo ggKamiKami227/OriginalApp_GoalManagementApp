@@ -3,8 +3,11 @@
  */
 package com.example.ver2.activityClass.createActivityClass.createPurpose;
 
+import static java.lang.String.valueOf;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -80,7 +83,7 @@ public class MandalaChartCoreChartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent_next = new Intent(MandalaChartCoreChartActivity.this, MandalaChartExpansionActivity.class);
-                intent_next.putExtra("MandalaChart",mandalaChart);
+                intent_next.putExtra("MandalaChart", mandalaChart);
                 startActivity(intent_next);
             }
         });
@@ -89,8 +92,8 @@ public class MandalaChartCoreChartActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_before = new Intent(MandalaChartCoreChartActivity.this,MandalaChartPurposeActivity.class);
-                intent_before.putExtra("MandalaChart",mandalaChart);
+                Intent intent_before = new Intent(MandalaChartCoreChartActivity.this, MandalaChartPurposeActivity.class);
+                intent_before.putExtra("MandalaChart", mandalaChart);
                 startActivity(intent_before);
             }
         });
@@ -114,16 +117,20 @@ public class MandalaChartCoreChartActivity extends AppCompatActivity {
         buttonMap.put(Bottom, bottomButton);
         buttonMap.put(BottomRight, bottomRightButton);
 
-        for(Map.Entry<Integer, Button> entry : buttonMap.entrySet()){
+        for (Map.Entry<Integer, Button> entry : buttonMap.entrySet()) {
             Integer chartId = entry.getKey();
             Button button = entry.getValue();
-            if(mandalaChart.getChartByID(chartId) != null){
-                if(mandalaChart.getChartByID(chartId).getGoal() != null || !mandalaChart.getChartByID(chartId).getGoal().isEmpty()){
-                    button.setText(mandalaChart.getChartByID(chartId).getGoal());
-                }else {
+            if (mandalaChart.getChartByID(chartId) != null) {
+                if (mandalaChart.getChartByID(chartId).getGoal() != null) {
+                    if (!mandalaChart.getChartByID(chartId).getGoal().isEmpty())
+                        button.setText(mandalaChart.getChartByID(chartId).getGoal());
+                    else {
+                        button.setText(textHint);
+                    }
+                } else {
                     button.setText(textHint);
                 }
-            }else{
+            } else {
                 button.setText(textHint);
             }
         }
@@ -409,7 +416,7 @@ public class MandalaChartCoreChartActivity extends AppCompatActivity {
     }
 
     //ボタンのリスナを省略して書くためのメソッド
-    private View.OnClickListener createChartButtonClickListener(final int chartID){
+    private View.OnClickListener createChartButtonClickListener(final int chartID) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -418,24 +425,40 @@ public class MandalaChartCoreChartActivity extends AppCompatActivity {
 
                 //入力を待つ
                 //ここで選択されているボタンの変更
-                buttonNumber = chartID;
                 if (mandalaChart.getChartByID(chartID) != null) {
-                    if (mandalaChart.getChartByID(chartID).getGoal() != null && !mandalaChart.getChartByID(chartID).getGoal().isEmpty()) {
-                        goalEditText.setText(mandalaChart.getChartByID(chartID).getGoal());
+                    if (mandalaChart.getChartByID(chartID).getGoal() != null) {
+                        if (!mandalaChart.getChartByID(chartID).getGoal().isEmpty()) {
+                            goalEditText.setText(mandalaChart.getChartByID(chartID).getGoal());
+                        } else {
+                            goalEditText.setHint(textHint);
+                            goalEditText.setText("");
+                        }
                     } else {
                         goalEditText.setHint(textHint);
+                        goalEditText.setText("");
                     }
                 } else {
+                    Log.d("create new mandalaChart", "Create! MandalaChart");
                     //もし、チャートがなかったら、ここで新しくチャートを生成する。
                     mandalaChart.addChart(new Chart(chartID, null, null, false));
                     goalEditText.setHint(textHint);
+                    goalEditText.setText("");
                 }
+
+                //2025-05-14 デバッグ：ボタンのテキストが変わらない。メソッド入れ忘れ
+                updateButtonText();
+
+                //2025-05-14:このタイミングを間違えるとChartの生成するIDが間違えるから注意
+                buttonNumber = chartID;
             }
         };
     }
 
+
     private void updateChartGoal() {
         //入力された情報を保存する
+        Log.d("button Number", valueOf(buttonNumber));
+
         if (buttonNumber != 0) {
             String goal = goalEditText.getText().toString();
             //チャートのGoalを変更（チャート指定方法はIDとボタンのナンバーを一致させる。）
