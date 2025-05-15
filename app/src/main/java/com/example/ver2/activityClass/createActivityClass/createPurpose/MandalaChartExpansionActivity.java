@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -33,6 +34,8 @@ public class MandalaChartExpansionActivity extends AppCompatActivity {
     private final int Bottom = 7;
     private final int BottomRight = 8;
 
+    private TableLayout buttonTableLayout;
+
     //チャートはボタンで構成する。真ん中のPurposeButtonのみテキストを変更するだけでリスナは付けない
     private Button topLeftButton, topButton, topRightButton;
     private Button leftButton, purposeButton, rightButton;
@@ -48,15 +51,18 @@ public class MandalaChartExpansionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.top_chart_create_task);
 
-        topLeftButton = findViewById(R.id.goal_button_1);
-        topButton = findViewById(R.id.goal_button_2);
-        topRightButton = findViewById(R.id.goal_button_3);
-        leftButton = findViewById(R.id.goal_button_4);
-        purposeButton = findViewById(R.id.purpose_button);
-        rightButton = findViewById(R.id.goal_button_5);
-        bottomLeftButton = findViewById(R.id.goal_button_6);
-        bottomButton = findViewById(R.id.goal_button_7);
-        bottomRightButton = findViewById(R.id.goal_button_8);
+        buttonTableLayout = findViewById(R.id.coreChart);
+
+        topLeftButton = buttonTableLayout.findViewById(R.id.button_topLeft);
+        topButton = buttonTableLayout.findViewById(R.id.button_top);
+        topRightButton = buttonTableLayout.findViewById(R.id.button_topRight);
+        leftButton = buttonTableLayout.findViewById(R.id.button_Left);
+        purposeButton = buttonTableLayout.findViewById(R.id.button_center);
+        rightButton = buttonTableLayout.findViewById(R.id.button_Right);
+        bottomLeftButton = buttonTableLayout.findViewById(R.id.button_bottomLeft);
+        bottomButton = buttonTableLayout.findViewById(R.id.button_bottom);
+        bottomRightButton = buttonTableLayout.findViewById(R.id.button_bottomRight);
+
 
         mandalaChartBottomChartViewModel = new ViewModelProvider(MandalaChartExpansionActivity.this).get(MandalaChartBottomChartViewModel.class);
 

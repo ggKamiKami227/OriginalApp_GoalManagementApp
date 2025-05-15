@@ -16,9 +16,14 @@
             android:layout_height="match_parent"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:background="@drawable/square_button_background"
+            android:background="@drawable/square_button_background_choosing"
             android:text="@string/MandalaChart_Blank"
-            app:autoSizeTextType="uniform" />
+            android:textSize = "10sp"
+            android:singleLine = "false"
+            android:ellipsize="end"
+            android:maxLines = "2"
+            android:padding="5dp"
+            />
 
         <Button
             android:id="@+id/button_top"
@@ -26,9 +31,13 @@
             android:layout_height="match_parent"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:background="@drawable/square_button_background"
+            android:background="@drawable/square_button_background_choosing"
             android:text="@string/MandalaChart_Blank"
-            app:autoSizeTextType="uniform" />
+            android:textSize = "10sp"
+            android:singleLine = "false"
+            android:ellipsize="end"
+            android:maxLines = "2"
+            android:padding="5dp" />
 
         <Button
             android:id="@+id/button_topRight"
@@ -36,9 +45,13 @@
             android:layout_height="match_parent"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:background="@drawable/square_button_background"
+            android:background="@drawable/square_button_background_choosing"
             android:text="@string/MandalaChart_Blank"
-            app:autoSizeTextType="uniform" />
+            android:textSize = "10sp"
+            android:singleLine = "false"
+            android:ellipsize="end"
+            android:maxLines = "2"
+            android:padding="5dp" />
     </TableRow>
 
     <TableRow
@@ -52,9 +65,13 @@
             android:layout_height="match_parent"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:background="@drawable/square_button_background"
+            android:background="@drawable/square_button_background_choosing"
             android:text="@string/MandalaChart_Blank"
-            app:autoSizeTextType="uniform" />
+            android:textSize = "10sp"
+            android:singleLine = "false"
+            android:ellipsize="end"
+            android:maxLines = "2"
+            android:padding="5dp" />
 
         <Button
             android:id="@+id/button_center"
@@ -62,9 +79,13 @@
             android:layout_height="match_parent"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:background="@drawable/square_button_background"
+            android:background="@drawable/square_button_background_choosing"
             android:text="@string/MandalaChart_Blank"
-            app:autoSizeTextType="uniform" />
+            android:textSize = "10sp"
+            android:singleLine = "false"
+            android:ellipsize="end"
+            android:maxLines = "2"
+            android:padding="5dp" />
 
         <Button
             android:id="@+id/button_Right"
@@ -72,9 +93,13 @@
             android:layout_height="match_parent"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:background="@drawable/square_button_background"
+            android:background="@drawable/square_button_background_choosing"
             android:text="@string/MandalaChart_Blank"
-            app:autoSizeTextType="uniform" />
+            android:textSize = "10sp"
+            android:singleLine = "false"
+            android:ellipsize="end"
+            android:maxLines = "2"
+            android:padding="5dp" />
     </TableRow>
 
     <TableRow
@@ -88,9 +113,13 @@
             android:layout_height="match_parent"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:background="@drawable/square_button_background"
+            android:background="@drawable/square_button_background_choosing"
             android:text="@string/MandalaChart_Blank"
-            app:autoSizeTextType="uniform" />
+            android:textSize = "10sp"
+            android:singleLine = "false"
+            android:ellipsize="end"
+            android:maxLines = "2"
+            android:padding="5dp" />
 
         <Button
             android:id="@+id/button_bottom"
@@ -98,9 +127,13 @@
             android:layout_height="match_parent"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:background="@drawable/square_button_background"
+            android:background="@drawable/square_button_background_choosing"
             android:text="@string/MandalaChart_Blank"
-            app:autoSizeTextType="uniform" />
+            android:textSize = "10sp"
+            android:singleLine = "false"
+            android:ellipsize="end"
+            android:maxLines = "2"
+            android:padding="5dp" />
 
         <Button
             android:id="@+id/button_bottomRight"
@@ -108,9 +141,13 @@
             android:layout_height="match_parent"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:background="@drawable/square_button_background"
+            android:background="@drawable/square_button_background_choosing"
             android:text="@string/MandalaChart_Blank"
-            app:autoSizeTextType="uniform" />
+            android:textSize = "10sp"
+            android:singleLine = "false"
+            android:ellipsize="end"
+            android:maxLines = "2"
+            android:padding="5dp" />
     </TableRow>
 
 </TableLayout>

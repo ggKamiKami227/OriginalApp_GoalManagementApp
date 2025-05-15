@@ -45,6 +45,8 @@ public class MandalaChartCoreChartActivity extends AppCompatActivity {
     private Button topLeftButton, topButton, topRightButton;
     private Button leftButton, purposeButton, rightButton;
     private Button bottomLeftButton, bottomButton, bottomRightButton;
+    //ボタンの色を変更するときに使う
+    private Button currentSelectedButton = null;
 
     private EditText goalEditText;
 
@@ -161,6 +163,14 @@ public class MandalaChartCoreChartActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //入力された情報を保存する
                 updateChartGoal();
+
+                //色変更するコード
+                Button clickedButton = (Button)view;
+                if(currentSelectedButton != null && currentSelectedButton != clickedButton){
+                    currentSelectedButton.setSelected(false);
+                }
+                clickedButton.setSelected(true);
+                currentSelectedButton = clickedButton;
 
                 //入力を待つ
                 //ここで選択されているボタンの変更

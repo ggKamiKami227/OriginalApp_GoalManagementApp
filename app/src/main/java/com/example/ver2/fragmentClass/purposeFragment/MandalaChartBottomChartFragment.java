@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -46,6 +47,8 @@ public class MandalaChartBottomChartFragment extends DialogFragment {
     private final int Bottom = 7;
     private final int BottomRight = 8;
 
+    private TableLayout buttonTableLayout;
+
     //チャートはボタンで構成する。真ん中のPurposeButtonのみテキストを変更するだけでリスナは付けない
     private Button topLeftButton, topButton, topRightButton;
     private Button leftButton, goalButton, rightButton;
@@ -71,15 +74,17 @@ public class MandalaChartBottomChartFragment extends DialogFragment {
         taskEditText.setHint(initialEditTextHint);
         beforeButton = 0;
 
-        topLeftButton = view.findViewById(R.id.goal_button_1);
-        topButton = view.findViewById(R.id.goal_button_2);
-        topRightButton = view.findViewById(R.id.goal_button_3);
-        leftButton = view.findViewById(R.id.goal_button_4);
-        goalButton = view.findViewById(R.id.purpose_button);
-        rightButton = view.findViewById(R.id.goal_button_5);
-        bottomLeftButton = view.findViewById(R.id.goal_button_6);
-        bottomButton = view.findViewById(R.id.goal_button_7);
-        bottomRightButton = view.findViewById(R.id.goal_button_8);
+        buttonTableLayout = view.findViewById(R.id.subChart);
+
+        topLeftButton = buttonTableLayout.findViewById(R.id.button_topLeft);
+        topButton = buttonTableLayout.findViewById(R.id.button_top);
+        topRightButton = buttonTableLayout.findViewById(R.id.button_topRight);
+        leftButton = buttonTableLayout.findViewById(R.id.button_Left);
+        goalButton = buttonTableLayout.findViewById(R.id.button_center);
+        rightButton = buttonTableLayout.findViewById(R.id.button_Right);
+        bottomLeftButton = buttonTableLayout.findViewById(R.id.button_bottomLeft);
+        bottomButton = buttonTableLayout.findViewById(R.id.button_bottom);
+        bottomRightButton = buttonTableLayout.findViewById(R.id.button_bottomRight);
 
         Bundle bundle = getArguments();
         if(bundle != null){
