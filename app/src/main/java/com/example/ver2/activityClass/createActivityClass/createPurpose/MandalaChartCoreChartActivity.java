@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,6 +39,7 @@ public class MandalaChartCoreChartActivity extends AppCompatActivity {
     //どのボタンを押されているか判断するための変数
     private int buttonNumber;
 
+    private TableLayout buttonTableLayout;
     //チャートはボタンで構成する。真ん中のPurposeButtonのみテキストを変更するだけでリスナは付けない
     //2025-04-22 charts変数と同期させたい（考えなくてもいいかもだけど、左上から右に数えていって、それの順番でリストと紐づけさせたい）。IDでChartを管理すればいいかも？
     private Button topLeftButton, topButton, topRightButton;
@@ -53,15 +55,17 @@ public class MandalaChartCoreChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.top_chart);
 
-        topLeftButton = findViewById(R.id.goal_button_1);
-        topButton = findViewById(R.id.goal_button_2);
-        topRightButton = findViewById(R.id.goal_button_3);
-        leftButton = findViewById(R.id.goal_button_4);
-        purposeButton = findViewById(R.id.purpose_button);
-        rightButton = findViewById(R.id.goal_button_5);
-        bottomLeftButton = findViewById(R.id.goal_button_6);
-        bottomButton = findViewById(R.id.goal_button_7);
-        bottomRightButton = findViewById(R.id.goal_button_8);
+        buttonTableLayout = findViewById(R.id.coreChart);
+
+        topLeftButton = buttonTableLayout.findViewById(R.id.button_topLeft);
+        topButton = buttonTableLayout.findViewById(R.id.button_top);
+        topRightButton = buttonTableLayout.findViewById(R.id.button_topRight);
+        leftButton = buttonTableLayout.findViewById(R.id.button_Left);
+        purposeButton = buttonTableLayout.findViewById(R.id.button_center);
+        rightButton = buttonTableLayout.findViewById(R.id.button_Right);
+        bottomLeftButton = buttonTableLayout.findViewById(R.id.button_bottomLeft);
+        bottomButton = buttonTableLayout.findViewById(R.id.button_bottom);
+        bottomRightButton = buttonTableLayout.findViewById(R.id.button_bottomRight);
 
         goalEditText = findViewById(R.id.goalNameEditText);
 
@@ -134,87 +138,6 @@ public class MandalaChartCoreChartActivity extends AppCompatActivity {
                 button.setText(textHint);
             }
         }
-
-
-//        //MandalaChartクラスのチャートを指定して取得
-//        if (mandalaChart.getChartByID(TopLeft) != null) {
-//            if (mandalaChart.getChartByID(TopLeft).getGoal() != null && !mandalaChart.getChartByID(TopLeft).getGoal().isEmpty()) {
-//                topLeftButton.setText(mandalaChart.getChartByID(TopLeft).getGoal());
-//            } else {
-//                topLeftButton.setText(textHint);
-//            }
-//        } else {
-//            topLeftButton.setText(textHint);
-//        }
-//
-//        if (mandalaChart.getChartByID(Top) != null) {
-//            if (mandalaChart.getChartByID(Top).getGoal() != null) {
-//                topButton.setText(mandalaChart.getChartByID(Top).getGoal());
-//            } else {
-//                topButton.setText(textHint);
-//            }
-//        } else {
-//            topButton.setText(textHint);
-//        }
-//
-//        if (mandalaChart.getChartByID(TopRight) != null) {
-//            if (mandalaChart.getChartByID(TopRight).getGoal() != null) {
-//                topRightButton.setText(mandalaChart.getChartByID(TopRight).getGoal());
-//            } else {
-//                topRightButton.setText(textHint);
-//            }
-//        } else {
-//            topRightButton.setText(textHint);
-//        }
-//        if (mandalaChart.getChartByID(Left) != null) {
-//            if (mandalaChart.getChartByID(Left).getGoal() != null) {
-//                leftButton.setText(mandalaChart.getChartByID(Left).getGoal());
-//            } else {
-//                leftButton.setText(textHint);
-//            }
-//        } else {
-//            leftButton.setText(textHint);
-//        }
-//
-//        if(mandalaChart.getChartByID(Right) != null){
-//            if(mandalaChart.getChartByID(Right).getGoal() != null){
-//                rightButton.setText(mandalaChart.getChartByID(Right).getGoal());
-//            }else{
-//                rightButton.setText(textHint);
-//            }
-//        }else{
-//            rightButton.setText(textHint);
-//        }
-//
-//        if (mandalaChart.getChartByID(BottomLeft) != null){
-//            if(mandalaChart.getChartByID(BottomLeft).getGoal() != null){
-//                bottomLeftButton.setText(mandalaChart.getChartByID(BottomLeft).getGoal());
-//            }else{
-//                bottomLeftButton.setText(textHint);
-//            }
-//        }else{
-//            bottomLeftButton.setText(textHint);
-//        }
-//
-//        if(mandalaChart.getChartByID(Bottom) != null){
-//            if(mandalaChart.getChartByID(Bottom).getGoal() != null){
-//                bottomButton.setText(mandalaChart.getChartByID(Bottom).getGoal());
-//            }else{
-//                bottomButton.setText(textHint);
-//            }
-//        }else{
-//            bottomButton.setText(textHint);
-//        }
-//
-//        if(mandalaChart.getChartByID(BottomRight) != null){
-//            if(mandalaChart.getChartByID(BottomRight).getGoal() != null){
-//                bottomRightButton.setText(mandalaChart.getChartByID(BottomRight).getGoal());
-//            }else{
-//                bottomRightButton.setText(textHint);
-//            }
-//        }else{
-//            bottomButton.setText(textHint);
-//        }
     }
 
     //ボタンのリスナを設定するメソッドで、ここでもしMandalaChartのChartsが作られていない場合、ここで足していく。（チャートの数とかの管理をしっかり行うこと）
@@ -229,190 +152,6 @@ public class MandalaChartCoreChartActivity extends AppCompatActivity {
         bottomLeftButton.setOnClickListener(createChartButtonClickListener(BottomLeft));
         bottomButton.setOnClickListener(createChartButtonClickListener(Bottom));
         bottomRightButton.setOnClickListener(createChartButtonClickListener(BottomRight));
-
-//        topLeftButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //入力された情報を保存する
-//                updateChartGoal();
-//
-//                //入力を待つ
-//                //ここで選択されているボタンの変更
-//                buttonNumber = TopLeft;
-//                if (mandalaChart.getChartByID(TopLeft) != null) {
-//                    if (mandalaChart.getChartByID(TopLeft).getGoal() != null) {
-//                        goalEditText.setText(mandalaChart.getChartByID(TopLeft).getGoal());
-//                    } else {
-//                        goalEditText.setHint(textHint);
-//                    }
-//                } else {
-//                    //もし、チャートがなかったら、ここで新しくチャートを生成する。IDは1
-//                    mandalaChart.addChart(new Chart(TopLeft, null, null, false));
-//                    goalEditText.setHint(textHint);
-//                }
-//            }
-//        });
-//
-//        topButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //入力された情報を保存する
-//                updateChartGoal();
-//
-//                //入力を待つ
-//                //ここで選択されているボタンの変更
-//                buttonNumber = Top;
-//                if (mandalaChart.getChartByID(Top) != null) {
-//                    if (mandalaChart.getChartByID(Top).getGoal() != null) {
-//                        goalEditText.setText(mandalaChart.getChartByID(Top).getGoal());
-//                    } else {
-//                        goalEditText.setHint(textHint);
-//                    }
-//                } else {
-//                    //もし、チャートがなかったら、ここで新しくチャートを生成する。IDは2
-//                    mandalaChart.addChart(new Chart(Top, null, null, false));
-//                    goalEditText.setHint(textHint);
-//                }
-//            }
-//        });
-//
-//        topRightButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //入力された情報を保存する
-//                updateChartGoal();
-//
-//                //入力を待つ
-//                //ここで選択されているボタンの変更
-//                buttonNumber = TopRight;
-//                if (mandalaChart.getChartByID(TopRight) != null) {
-//                    if (mandalaChart.getChartByID(TopRight).getGoal() != null) {
-//                        goalEditText.setText(mandalaChart.getChartByID(TopRight).getGoal());
-//                    } else {
-//                        goalEditText.setHint(textHint);
-//                    }
-//                } else {
-//                    //もし、チャートがなかったら、ここで新しくチャートを生成する。IDは3
-//                    mandalaChart.addChart(new Chart(TopRight, null, null, false));
-//                    goalEditText.setHint(textHint);
-//                }
-//            }
-//        });
-//
-//        leftButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //入力された情報を保存する
-//                updateChartGoal();
-//
-//                //入力を待つ
-//                //ここで選択されているボタンの変更
-//                buttonNumber = Left;
-//                if (mandalaChart.getChartByID(Left) != null) {
-//                    if (mandalaChart.getChartByID(Left).getGoal() != null) {
-//                        goalEditText.setText(mandalaChart.getChartByID(Left).getGoal());
-//                    } else {
-//                        goalEditText.setHint(textHint);
-//                    }
-//                } else {
-//                    //もし、チャートがなかったら、ここで新しくチャートを生成する。IDは5
-//                    mandalaChart.addChart(new Chart(Left, null, null, false));
-//                    goalEditText.setHint(textHint);
-//                }
-//            }
-//        });
-//
-//        rightButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //入力された情報を保存する
-//                updateChartGoal();
-//
-//                //入力を待つ
-//                //ここで選択されているボタンの変更
-//                buttonNumber = Right;
-//                if (mandalaChart.getChartByID(Right) != null) {
-//                    if (mandalaChart.getChartByID(Right).getGoal() != null) {
-//                        goalEditText.setText(mandalaChart.getChartByID(Right).getGoal());
-//                    } else {
-//                        goalEditText.setHint(textHint);
-//                    }
-//                } else {
-//                    //もし、チャートがなかったら、ここで新しくチャートを生成する。IDは5
-//                    mandalaChart.addChart(new Chart(Right, null, null, false));
-//                    goalEditText.setHint(textHint);
-//                }
-//            }
-//        });
-//
-//        bottomLeftButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //入力された情報を保存する
-//                updateChartGoal();
-//
-//                //入力を待つ
-//                //ここで選択されているボタンの変更
-//                buttonNumber = BottomLeft;
-//                if (mandalaChart.getChartByID(BottomLeft) != null) {
-//                    if (mandalaChart.getChartByID(BottomLeft).getGoal() != null) {
-//                        goalEditText.setText(mandalaChart.getChartByID(BottomLeft).getGoal());
-//                    } else {
-//                        goalEditText.setHint(textHint);
-//                    }
-//                } else {
-//                    //もし、チャートがなかったら、ここで新しくチャートを生成する。IDは6
-//                    mandalaChart.addChart(new Chart(BottomLeft, null, null, false));
-//                    goalEditText.setHint(textHint);
-//                }
-//            }
-//        });
-//
-//        bottomButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //入力された情報を保存する
-//                updateChartGoal();
-//
-//                //入力を待つ
-//                //ここで選択されているボタンの変更
-//                buttonNumber = Bottom;
-//                if (mandalaChart.getChartByID(Bottom) != null) {
-//                    if (mandalaChart.getChartByID(Bottom).getGoal() != null) {
-//                        goalEditText.setText(mandalaChart.getChartByID(Bottom).getGoal());
-//                    } else {
-//                        goalEditText.setHint(textHint);
-//                    }
-//                } else {
-//                    //もし、チャートがなかったら、ここで新しくチャートを生成する。IDは7
-//                    mandalaChart.addChart(new Chart(Bottom, null, null, false));
-//                    goalEditText.setHint(textHint);
-//                }
-//            }
-//        });
-//
-//        bottomRightButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //入力された情報を保存する
-//                updateChartGoal();
-//
-//                //入力を待つ
-//                //ここで選択されているボタンの変更
-//                buttonNumber = BottomRight;
-//                if (mandalaChart.getChartByID(BottomRight) != null) {
-//                    if (mandalaChart.getChartByID(BottomRight).getGoal() != null) {
-//                        goalEditText.setText(mandalaChart.getChartByID(BottomRight).getGoal());
-//                    } else {
-//                        goalEditText.setHint(textHint);
-//                    }
-//                } else {
-//                    //もし、チャートがなかったら、ここで新しくチャートを生成する。IDは8
-//                    mandalaChart.addChart(new Chart(BottomRight, null, null, false));
-//                    goalEditText.setHint(textHint);
-//                }
-//            }
-//        });
     }
 
     //ボタンのリスナを省略して書くためのメソッド
