@@ -88,6 +88,7 @@ public class MandalaChartCoreChartActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                updateChartGoal();
                 Intent intent_next = new Intent(MandalaChartCoreChartActivity.this, MandalaChartExpansionActivity.class);
                 intent_next.putExtra("MandalaChart", mandalaChart);
                 startActivity(intent_next);
@@ -98,6 +99,7 @@ public class MandalaChartCoreChartActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                updateChartGoal();
                 Intent intent_before = new Intent(MandalaChartCoreChartActivity.this, MandalaChartPurposeActivity.class);
                 intent_before.putExtra("MandalaChart", mandalaChart);
                 startActivity(intent_before);

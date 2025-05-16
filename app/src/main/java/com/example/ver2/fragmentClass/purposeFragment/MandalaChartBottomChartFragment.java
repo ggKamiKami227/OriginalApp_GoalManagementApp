@@ -54,6 +54,9 @@ public class MandalaChartBottomChartFragment extends DialogFragment {
     private Button leftButton, goalButton, rightButton;
     private Button bottomLeftButton, bottomButton, bottomRightButton;
 
+    //選択しているボタンの色を変更するのに使用
+    private Button currentSelectedButton = null;
+
 
     private EditText taskEditText;
 
@@ -64,11 +67,13 @@ public class MandalaChartBottomChartFragment extends DialogFragment {
     MandalaChartBottomChartViewModel mandalaChartBottomChartViewModel;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.bottom_chart, container,false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.bottom_chart, container, false);
 
         //ViewModelの取得
         mandalaChartBottomChartViewModel = new ViewModelProvider(requireActivity()).get(MandalaChartBottomChartViewModel.class);
+
+        taskEditText = view.findViewById(R.id.taskNameEditText);
 
         //テキストとかどこのボタンを押したか記憶する変数などの初期化
         taskEditText.setHint(initialEditTextHint);
@@ -87,25 +92,29 @@ public class MandalaChartBottomChartFragment extends DialogFragment {
         bottomRightButton = buttonTableLayout.findViewById(R.id.button_bottomRight);
 
         Bundle bundle = getArguments();
-        if(bundle != null){
+        if (bundle != null) {
             mandalaChart = bundle.getParcelable("mandalaChart");
             if (mandalaChart != null) {
                 //チャートの初期化
                 mandalaChartBottomChartViewModel.getSelectedChartID().observe(this, currentChartID -> {
-                    if(currentChartID != null){
+                    if (currentChartID != null) {
                         chartID = currentChartID;
+
+                        chart = mandalaChart.getChartByID(chartID);
+                        if (chart != null) {
+                            //chartの中のタスクを生成
+                            // ID は 1 から 8 まで順番に割り振る
+                            for (int i = 1; i <= 8; i++) {
+                                if (chart.getTaskById(i) == null) {
+                                    chart.addTask(new Task(i, "", "", null, null, null, false));
+                                }
+                            }
+                            updateButtonText();
+                            setChartButtonClickListener();
+                        }
                     }
                 });
-                chart = mandalaChart.getChartByID(chartID);
-                //chartの中のタスクを生成
-                // ID は 1 から 8 まで順番に割り振る
-                for (int i = 1; i <= 8; i++) {
-                    if(chart.getTaskById(i) == null) {
-                        chart.addTask(new Task(i, "", "", null, null, null, false));
-                    }
-                }
-                updateButtonText();
-                setChartButtonClickListener();
+
             }
         }
 
@@ -116,7 +125,7 @@ public class MandalaChartBottomChartFragment extends DialogFragment {
             @Override
             public void onClick(View view1) {
                 // Taskの更新
-                if(beforeButton != 0){
+                if (beforeButton != 0) {
                     String newTaskName = taskEditText.getText().toString();
                     chart.getTaskById(beforeButton).setName(newTaskName);
                 }
@@ -143,7 +152,7 @@ public class MandalaChartBottomChartFragment extends DialogFragment {
     }
 
     //ボタンのリスナを設定する。Chartの情報を更新（Task）する役目と、EditTextを更新する。
-    private void setChartButtonClickListener(){
+    private void setChartButtonClickListener() {
         topLeftButton.setOnClickListener(createChartButtonClickListener(TopLeft));
         topButton.setOnClickListener(createChartButtonClickListener(Top));
         topRightButton.setOnClickListener(createChartButtonClickListener(TopRight));
@@ -154,24 +163,37 @@ public class MandalaChartBottomChartFragment extends DialogFragment {
         bottomRightButton.setOnClickListener(createChartButtonClickListener(BottomRight));
     }
 
-    private View.OnClickListener createChartButtonClickListener(final int id){
+    private View.OnClickListener createChartButtonClickListener(final int id) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Taskの更新。beforeButton変数を利用して、変更するタスクを指定
-                if(beforeButton != 0){
+                if (beforeButton != 0) {
                     String newTaskName = taskEditText.getText().toString();
                     chart.getTaskById(beforeButton).setName(newTaskName);
+                    updateButtonText();
                 }
 
-                //beforeButtonを今押しているものに変更
+                //色を変更するコード
+                Button clickedButton = (Button)view;
+                if(currentSelectedButton != null && currentSelectedButton != clickedButton){
+                    currentSelectedButton.setSelected(false);
+                }
+                clickedButton.setSelected(true);
+                currentSelectedButton = clickedButton;
+
                 beforeButton = id;
 
                 //taskEditTextのテキストを更新
-                if(chart.getTaskById(id).getName().isEmpty() || chart.getTaskById(id).getName() == null)
-                    taskEditText.setHint(textHint);
-                else
+                if (chart.getTaskById(id).getName() == null) {
+                    if (chart.getTaskById(id).getName().isEmpty()) {
+                        taskEditText.setHint(textHint);
+                    } else {
+                        taskEditText.setHint(textHint);
+                    }
+                } else {
                     taskEditText.setText(chart.getTaskById(id).getName());
+                }
             }
         };
     }
@@ -195,9 +217,13 @@ public class MandalaChartBottomChartFragment extends DialogFragment {
         for (Map.Entry<Integer, Button> entry : buttonMap.entrySet()) {
             Integer taskId = entry.getKey();
             Button button = entry.getValue();
-            if(chart != null) {
-                if (chart.getTaskById(taskId) != null && !chart.getTaskById(taskId).getName().isEmpty()) {
-                    button.setText(chart.getTaskById(taskId).getName());
+            if (chart != null) {
+                if (chart.getTaskById(taskId) != null) {
+                    if (!chart.getTaskById(taskId).getName().isEmpty()) {
+                        button.setText(chart.getTaskById(taskId).getName());
+                    }else{
+                        button.setText(buttonHint);
+                    }
                 } else {
                     button.setText(buttonHint);
                 }

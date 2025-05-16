@@ -68,6 +68,9 @@ public class Chart implements Parcelable {
 
     //IDで指定する
     public Task getTaskById(int id){
+        if(tasks == null){
+            tasks = new ArrayList<>();
+        }
         for(Task task:tasks){
             if(task.getID() == id){
                 return task;

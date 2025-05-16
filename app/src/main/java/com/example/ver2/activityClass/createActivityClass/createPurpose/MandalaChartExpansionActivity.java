@@ -40,6 +40,8 @@ public class MandalaChartExpansionActivity extends AppCompatActivity {
     private Button topLeftButton, topButton, topRightButton;
     private Button leftButton, purposeButton, rightButton;
     private Button bottomLeftButton, bottomButton, bottomRightButton;
+    //ボタンの色を変更するときに使う
+    private Button currentSelectedButton;
 
     private MandalaChart mandalaChart;
 
@@ -91,9 +93,17 @@ public class MandalaChartExpansionActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //ボタンの色を変更
+                Button clickedButton = (Button) view;
+                if (currentSelectedButton != null && currentSelectedButton != clickedButton) {
+                    currentSelectedButton.setSelected(false);
+                }
+                clickedButton.setSelected(true);
+                currentSelectedButton = clickedButton;
+
                 //確認画面に移行
                 Intent intent_next = new Intent(MandalaChartExpansionActivity.this, MandalaChartConfirmAllChartActivity.class);
-                intent_next.putExtra("MandalaChart",mandalaChart);
+                intent_next.putExtra("MandalaChart", mandalaChart);
                 startActivity(intent_next);
             }
         });
@@ -141,115 +151,39 @@ public class MandalaChartExpansionActivity extends AppCompatActivity {
         };
     }
 
-        //ボタンのテキストを更新するメソッド
-        private void updateButtonText () {
-            //purposeボタン
-            purposeButton.setText(mandalaChart.getPurpose());
+    //ボタンのテキストを更新するメソッド
+    private void updateButtonText() {
+        //purposeボタン
+        purposeButton.setText(mandalaChart.getPurpose());
 
-            //Mapを使うことでコンパクトに書く
-            Map<Integer, Button> buttonMap = new HashMap<>();
-            buttonMap.put(TopLeft, topLeftButton);
-            buttonMap.put(Top, topButton);
-            buttonMap.put(TopRight, topRightButton);
-            buttonMap.put(Left, leftButton);
-            buttonMap.put(Right, rightButton);
-            buttonMap.put(BottomLeft, bottomLeftButton);
-            buttonMap.put(Bottom, bottomButton);
-            buttonMap.put(BottomRight, bottomRightButton);
+        //Mapを使うことでコンパクトに書く
+        Map<Integer, Button> buttonMap = new HashMap<>();
+        buttonMap.put(TopLeft, topLeftButton);
+        buttonMap.put(Top, topButton);
+        buttonMap.put(TopRight, topRightButton);
+        buttonMap.put(Left, leftButton);
+        buttonMap.put(Right, rightButton);
+        buttonMap.put(BottomLeft, bottomLeftButton);
+        buttonMap.put(Bottom, bottomButton);
+        buttonMap.put(BottomRight, bottomRightButton);
 
-            for (Map.Entry<Integer, Button> entry : buttonMap.entrySet()) {
-                //Integerとintの関係に注意IntegerはNullアリだけど、intはなしだから、Nullエラーが出る可能性がある
-                Integer chartId = entry.getKey();
-                Button button = entry.getValue();
-                if(mandalaChart.getChartByID(chartId) != null) {
-                    if (mandalaChart.getChartByID(chartId).getGoal() != null && !mandalaChart.getChartByID(chartId).getGoal().isEmpty()) {
+        for (Map.Entry<Integer, Button> entry : buttonMap.entrySet()) {
+            //Integerとintの関係に注意IntegerはNullアリだけど、intはなしだから、Nullエラーが出る可能性がある
+            Integer chartId = entry.getKey();
+            Button button = entry.getValue();
+            if (mandalaChart.getChartByID(chartId) != null) {
+                if (mandalaChart.getChartByID(chartId).getGoal() != null) {
+                    if (!mandalaChart.getChartByID(chartId).getGoal().isEmpty()) {
                         button.setText(mandalaChart.getChartByID(chartId).getGoal());
-                    } else {
+                    }else{
                         button.setText(textNothing);
                     }
+                } else {
+                    button.setText(textNothing);
                 }
+            }else{
+                button.setText(textNothing);
             }
-
-
-
-//            //MandalaChartクラスのチャートを指定して取得
-//            if (mandalaChart.getChartByID(TopLeft) != null) {
-//                if (mandalaChart.getChartByID(TopLeft).getGoal() != null && !mandalaChart.getChartByID(TopLeft).getGoal().isEmpty()) {
-//                    topLeftButton.setText(mandalaChart.getChartByID(TopLeft).getGoal());
-//                } else {
-//                    topLeftButton.setText(textNothing);
-//                }
-//            } else {
-//                topLeftButton.setText(textNothing);
-//            }
-//
-//            if (mandalaChart.getChartByID(Top) != null) {
-//                if (mandalaChart.getChartByID(Top).getGoal() != null) {
-//                    topButton.setText(mandalaChart.getChartByID(Top).getGoal());
-//                } else {
-//                    topButton.setText(textNothing);
-//                }
-//            } else {
-//                topButton.setText(textNothing);
-//            }
-//
-//            if (mandalaChart.getChartByID(TopRight) != null) {
-//                if (mandalaChart.getChartByID(TopRight).getGoal() != null) {
-//                    topRightButton.setText(mandalaChart.getChartByID(TopRight).getGoal());
-//                } else {
-//                    topRightButton.setText(textNothing);
-//                }
-//            } else {
-//                topRightButton.setText(textNothing);
-//            }
-//            if (mandalaChart.getChartByID(Left) != null) {
-//                if (mandalaChart.getChartByID(Left).getGoal() != null) {
-//                    leftButton.setText(mandalaChart.getChartByID(Left).getGoal());
-//                } else {
-//                    leftButton.setText(textNothing);
-//                }
-//            } else {
-//                leftButton.setText(textNothing);
-//            }
-//
-//            if (mandalaChart.getChartByID(Right) != null) {
-//                if (mandalaChart.getChartByID(Right).getGoal() != null) {
-//                    rightButton.setText(mandalaChart.getChartByID(Right).getGoal());
-//                } else {
-//                    rightButton.setText(textNothing);
-//                }
-//            } else {
-//                rightButton.setText(textNothing);
-//            }
-//
-//            if (mandalaChart.getChartByID(BottomLeft) != null) {
-//                if (mandalaChart.getChartByID(BottomLeft).getGoal() != null) {
-//                    bottomLeftButton.setText(mandalaChart.getChartByID(BottomLeft).getGoal());
-//                } else {
-//                    bottomLeftButton.setText(textNothing);
-//                }
-//            } else {
-//                bottomLeftButton.setText(textNothing);
-//            }
-//
-//            if (mandalaChart.getChartByID(Bottom) != null) {
-//                if (mandalaChart.getChartByID(Bottom).getGoal() != null) {
-//                    bottomButton.setText(mandalaChart.getChartByID(Bottom).getGoal());
-//                } else {
-//                    bottomButton.setText(textNothing);
-//                }
-//            } else {
-//                bottomButton.setText(textNothing);
-//            }
-//
-//            if (mandalaChart.getChartByID(BottomRight) != null) {
-//                if (mandalaChart.getChartByID(BottomRight).getGoal() != null) {
-//                    bottomRightButton.setText(mandalaChart.getChartByID(BottomRight).getGoal());
-//                } else {
-//                    bottomRightButton.setText(textNothing);
-//                }
-//            } else {
-//                bottomButton.setText(textNothing);
-//            }
         }
     }
+}
