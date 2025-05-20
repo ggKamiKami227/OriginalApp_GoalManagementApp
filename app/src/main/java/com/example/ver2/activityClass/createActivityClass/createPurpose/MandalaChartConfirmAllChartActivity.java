@@ -13,7 +13,7 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridLayout;
+import android.widget.TableLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -48,15 +48,16 @@ public class MandalaChartConfirmAllChartActivity extends AppCompatActivity {
     private Button leftButton, centerButton, rightButton;
     private Button bottomLeftButton, bottomButton, bottomRightButton;
 
-    private GridLayout topLeftChartGrid, topChartGrid, topRightChartGrid;
-    private GridLayout leftChartGrid, centerChartGrid, rightChartGrid;
-    private GridLayout bottomLeftChartGrid, bottomChartGrid, bottomRightChartGrid;
+    private TableLayout topLeftChartTable, topChartTable, topRightChartTable;
+    private TableLayout leftChartTable, centerChartTable, rightChartTable;
+    private TableLayout bottomLeftChartTable, bottomChartTable, bottomRightChartTable;
 
-    private GridLayout mandalaGridLayout;
+    private androidx.gridlayout.widget.GridLayout mandalaGridLayout;
 
     //ジェスチャー検出器
     private ScaleGestureDetector scaleGestureDetector;
     private GestureDetector gestureDetector;
+    private ScaleListener myScaleListener;
 
     //現在の拡大率と移動量
     private float currentScale = 1.0f;
@@ -82,8 +83,10 @@ public class MandalaChartConfirmAllChartActivity extends AppCompatActivity {
 
         //ジェスチャー検出器の初期化
         //Activityの場合はContextとして'this'を渡す
-        scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
+        myScaleListener = new ScaleListener();
+        scaleGestureDetector = new ScaleGestureDetector(this, myScaleListener);
         gestureDetector = new GestureDetector(this, new GestureListener());
+
 
         //GridLayoutにタッチリスナーを設定
         mandalaGridLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -95,7 +98,10 @@ public class MandalaChartConfirmAllChartActivity extends AppCompatActivity {
 
                 //GestureDetectorにイベントを渡す
                 //スケールジェスチャーが行われている間はパンを無効にするなどの制御も可能
-                boolean consumedByGesture = gestureDetector.onTouchEvent(motionEvent);
+                boolean consumedByGesture = false;
+                if (!myScaleListener.isInScale()) {
+                    consumedByGesture = gestureDetector.onTouchEvent(motionEvent);
+                }
 
                 //いずれかの検出器がイベントを消費したらtrueを返す
                 //v.onTouchEvent(motionEvent)を含めると、GridLayout自体のデフォルトのタッチ処理も
@@ -105,15 +111,15 @@ public class MandalaChartConfirmAllChartActivity extends AppCompatActivity {
         });
 
         //それぞれのチャートを変数に割り当て
-        topLeftChartGrid = findViewById(R.id.topLeftChart);
-        topChartGrid = findViewById(R.id.topChart);
-        topRightChartGrid = findViewById(R.id.topRightChart);
-        leftChartGrid = findViewById(R.id.LeftChart);
-        centerChartGrid = findViewById(R.id.centerChart);
-        rightChartGrid = findViewById(R.id.RightChart);
-        bottomLeftChartGrid = findViewById(R.id.bottomLeftChart);
-        bottomChartGrid = findViewById(R.id.bottomChart);
-        bottomRightChartGrid = findViewById(R.id.bottomRightChart);
+        topLeftChartTable = mandalaGridLayout.findViewById(R.id.topLeftChart);
+        topChartTable = mandalaGridLayout.findViewById(R.id.topChart);
+        topRightChartTable = mandalaGridLayout.findViewById(R.id.topRightChart);
+        leftChartTable = mandalaGridLayout.findViewById(R.id.LeftChart);
+        centerChartTable = mandalaGridLayout.findViewById(R.id.centerChart);
+        rightChartTable = mandalaGridLayout.findViewById(R.id.RightChart);
+        bottomLeftChartTable = mandalaGridLayout.findViewById(R.id.bottomLeftChart);
+        bottomChartTable = mandalaGridLayout.findViewById(R.id.bottomChart);
+        bottomRightChartTable = mandalaGridLayout.findViewById(R.id.bottomRightChart);
 
         //作成したものを前のActivityから受け取る
         Intent intent = getIntent();
@@ -144,34 +150,42 @@ public class MandalaChartConfirmAllChartActivity extends AppCompatActivity {
         });
 
 
-
     }
 
 
     //ScaleGestureDetectorのリスナー実装（内部クラス）
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        private boolean isInScale = false;
+
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
+            // ズームの中心をジェスチャーの中心に設定
+            mandalaGridLayout.setPivotX(detector.getFocusX());
+            mandalaGridLayout.setPivotY(detector.getFocusY());
+
             currentScale *= detector.getScaleFactor();
             currentScale = Math.max(minScale, Math.min(currentScale, maxScale));
 
             mandalaGridLayout.setScaleX(currentScale);
             mandalaGridLayout.setScaleY(currentScale);
 
-            //ズームの中心をジェスチャーの中心に合わせる場合のtranslationは省略
-            //detector.getFocusX(), detector.getFocusY()を使用
-
-            return true; //イベントの消費
+            return true; // イベントの消費
         }
 
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
-            return true; //スケールジェスチャーを有効にする
+            isInScale = true; // スケール開始
+            return true; // スケールジェスチャーを有効にする
         }
 
         @Override
         public void onScaleEnd(ScaleGestureDetector detector) {
-            //何もしなくてもいい
+            isInScale = false; // スケール終了
+        }
+
+        // スケール中かどうかを外部から取得するためのメソッド
+        public boolean isInScale() {
+            return isInScale;
         }
     }
 
@@ -184,16 +198,22 @@ public class MandalaChartConfirmAllChartActivity extends AppCompatActivity {
                 float distanceX, //移動された距離
                 float distanceY  //移動された距離
         ) {
-            //Viewを移動させるには符号を反転させる
+            if (myScaleListener.isInScale()) {
+                return false;
+            }
+
+            // Viewを移動させるには符号を反転させる
             currentTranslationX -= distanceX;
             currentTranslationY -= distanceY;
 
+            // パンの境界制御を適用
+            adjustTranslationToBounds();
+
+            // ビューの移動を適用
             mandalaGridLayout.setTranslationX(currentTranslationX);
             mandalaGridLayout.setTranslationY(currentTranslationY);
 
-            //拡大時のパンの境界制御は省略
-
-            return true; //イベントを消費する
+            return true; // イベントを消費する
         }
 
         // GestureDetectorを使う場合は、onDownをオーバーライドして、trueを返すのが一般的
@@ -205,24 +225,90 @@ public class MandalaChartConfirmAllChartActivity extends AppCompatActivity {
         //onSingleTapUpなどはアニメーションズームのトリガーに利用可能
     }
 
+    // パンの境界を調整するヘルパーメソッド
+    private void adjustTranslationToBounds() {
+        // mandalaGridLayoutの実際の幅と高さ（拡大前のサイズ）
+        int viewWidth = mandalaGridLayout.getWidth();
+        int viewHeight = mandalaGridLayout.getHeight();
+
+        // 親ビュー（ConstraintLayout）の幅と高さ
+        View parent = (View) mandalaGridLayout.getParent();
+        if (parent == null) return; // 親がない場合は処理しない
+        int parentWidth = parent.getWidth();
+        int parentHeight = parent.getHeight();
+
+        // 拡大後のコンテンツのサイズ
+        float scaledWidth = viewWidth * currentScale;
+        float scaledHeight = viewHeight * currentScale;
+
+        // X軸の移動制限
+        float maxTranslateX;
+        float minTranslateX;
+
+        // Y軸の移動制限
+        float maxTranslateY; // ★ここに宣言を追加
+        float minTranslateY; // ★ここに宣言を追加
+
+        // ★★★ ここから追加・修正する部分 ★★★
+        // Viewportの左端と右端のワールド座標 (GridLayoutの左上が(0,0)として)
+        float viewportLeft = -currentTranslationX / currentScale;
+        float viewportTop = -currentTranslationY / currentScale;
+        float viewportRight = viewportLeft + parentWidth / currentScale;
+        float viewportBottom = viewportTop + parentHeight / currentScale;
+
+        // コンテンツの左端と右端のワールド座標 (GridLayoutの左上が(0,0)として)
+        float contentLeft = 0;
+        float contentTop = 0;
+        float contentRight = viewWidth;
+        float contentBottom = viewHeight;
+        // ★★★ ここまで追加・修正する部分 ★★★
+
+        if (scaledWidth < parentWidth) {
+            // コンテンツが親ビューより小さい場合、中央に固定
+            // TranslationXの目標値は、(parentWidth - scaledWidth) / 2.0f
+            // これは現在のTranslationXをリセットするような挙動
+            maxTranslateX = (parentWidth - scaledWidth) / 2.0f;
+            minTranslateX = maxTranslateX; // 中央に固定
+        } else {
+            // コンテンツが親ビューより大きい場合、はみ出しを制限
+            // 左端が画面左端より右に来ないように、右端が画面右端より左に来ないように
+            // translationX の範囲は -(scaledWidth - parentWidth) / 2 から (scaledWidth - parentWidth) / 2
+            // ただし、pivotX/Y の影響を考慮する必要があります。
+            // 簡単な方法として、コンテンツの中心とビューポートの中心を合わせるようにする
+            maxTranslateX = (scaledWidth - parentWidth) / 2.0f;
+            minTranslateX = -(scaledWidth - parentWidth) / 2.0f;
+        }
+
+        if (scaledHeight < parentHeight) {
+            maxTranslateY = (parentHeight - scaledHeight) / 2.0f;
+            minTranslateY = maxTranslateY;
+        } else {
+            maxTranslateY = (scaledHeight - parentHeight) / 2.0f;
+            minTranslateY = -(scaledHeight - parentHeight) / 2.0f;
+        }
+
+        currentTranslationX = Math.max(minTranslateX, Math.min(currentTranslationX, maxTranslateX));
+        currentTranslationY = Math.max(minTranslateY, Math.min(currentTranslationY, maxTranslateY));
+    }
+
 
     private void setChartButtonText() {
         //Mapを使ってコンパクトに書く
-        Map<Integer, GridLayout> chartMap = new HashMap<>();
-        chartMap.put(TopLeft, topLeftChartGrid);
-        chartMap.put(Top, topChartGrid);
-        chartMap.put(TopRight, topRightChartGrid);
-        chartMap.put(Left, leftChartGrid);
-        chartMap.put(Center, centerChartGrid);
-        chartMap.put(Right, rightChartGrid);
-        chartMap.put(BottomLeft, bottomLeftChartGrid);
-        chartMap.put(Bottom, bottomChartGrid);
-        chartMap.put(BottomRight, bottomRightChartGrid);
+        Map<Integer, TableLayout> chartMap = new HashMap<>();
+        chartMap.put(TopLeft, topLeftChartTable);
+        chartMap.put(Top, topChartTable);
+        chartMap.put(TopRight, topRightChartTable);
+        chartMap.put(Left, leftChartTable);
+        chartMap.put(Center, centerChartTable);
+        chartMap.put(Right, rightChartTable);
+        chartMap.put(BottomLeft, bottomLeftChartTable);
+        chartMap.put(Bottom, bottomChartTable);
+        chartMap.put(BottomRight, bottomRightChartTable);
 
-        for (Map.Entry<Integer, GridLayout> entry : chartMap.entrySet()) {
+        for (Map.Entry<Integer, TableLayout> entry : chartMap.entrySet()) {
             //Integerとintの関係に注意、IntegerはNullアリだけど、intはナシだから、Nullエラーが出る可能性がある
             Integer chartId = entry.getKey();
-            GridLayout chart_layout = entry.getValue();
+            TableLayout chart_layout = entry.getValue();
             //Chartがあるか確認、また真ん中のChartはChartsに含まれていないので、そこはelse if で対処
             if (mandalaChart.getChartByID(chartId) != null) {
 
@@ -251,12 +337,29 @@ public class MandalaChartConfirmAllChartActivity extends AppCompatActivity {
                 for (Map.Entry<Integer, Button> buttonEntry : buttonMap.entrySet()) {
                     Integer buttonId = buttonEntry.getKey();
                     Button button = buttonEntry.getValue();
+
+                    // 真ん中のボタン以外はイベントを透過させる
+                    if (buttonId != Center) {
+                        button.setClickable(false);
+                        button.setFocusable(false);
+                    } else {
+                        // 真ん中のボタンはタップを有効にする
+                        button.setClickable(true);
+                        button.setFocusable(true);
+                        // ここでOnClickListenerを設定することも可能だが、
+                        // onSingleTapUpで一元管理するため、ここでは設定しない
+                    }
+
                     //チャートの真ん中はgoalでTaskオブジェクトじゃないから、別分岐
                     if (buttonId != Center) {
                         if (mandalaChart.getChartByID(chartId).getTaskById(buttonId) != null) {
                             Task task = mandalaChart.getChartByID(chartId).getTaskById(buttonId);
-                            if (task.getName() != null && !task.getName().isEmpty()) {
-                                button.setText(task.getName());
+                            if (task.getName() != null) {
+                                if (!task.getName().isEmpty()) {
+                                    button.setText(task.getName());
+                                } else {
+                                    button.setText(taskNothing);
+                                }
                             } else {
                                 button.setText(taskNothing);
                             }
@@ -264,8 +367,12 @@ public class MandalaChartConfirmAllChartActivity extends AppCompatActivity {
                     } else {
                         if (mandalaChart.getChartByID(chartId) != null) {
                             Chart chart = mandalaChart.getChartByID(chartId);
-                            if (chart.getGoal() != null && !chart.getGoal().isEmpty()) {
-                                button.setText(chart.getGoal());
+                            if (chart.getGoal() != null) {
+                                if (!chart.getGoal().isEmpty()) {
+                                    button.setText(chart.getGoal());
+                                } else {
+                                    button.setText(goalNothing);
+                                }
                             } else {
                                 button.setText(goalNothing);
                             }
@@ -301,16 +408,41 @@ public class MandalaChartConfirmAllChartActivity extends AppCompatActivity {
                     //真ん中は真ん中にpurpose,まわりはgoalってなってるから、goalIdにした
                     Integer goalId = buttonEntry.getKey();
                     Button button = buttonEntry.getValue();
+
+                    // 真ん中のボタン以外はイベントを透過させる
+                    if (goalId != Center) {
+                        button.setClickable(false);
+                        button.setFocusable(false);
+                    } else {
+                        // 真ん中のボタンはタップを有効にする
+                        button.setClickable(true);
+                        button.setFocusable(true);
+                        // ここでOnClickListenerを設定することも可能だが、
+                        // onSingleTapUpで一元管理するため、ここでは設定しない
+                    }
+
                     //中心はpurposeなので別にする
                     if (goalId != Center) {
-                        if (mandalaChart.getChartByID(goalId).getGoal() != null || !mandalaChart.getChartByID(goalId).getGoal().isEmpty()) {
-                            button.setText(mandalaChart.getChartByID(goalId).getGoal());
+                        if (mandalaChart.getChartByID(goalId) != null) {
+                            if (mandalaChart.getChartByID(goalId).getGoal() != null) {
+                                if (!mandalaChart.getChartByID(goalId).getGoal().isEmpty()) {
+                                    button.setText(mandalaChart.getChartByID(goalId).getGoal());
+                                } else {
+                                    button.setText(goalNothing);
+                                }
+                            } else {
+                                button.setText(goalNothing);
+                            }
                         } else {
                             button.setText(goalNothing);
                         }
                     } else {
-                        if (mandalaChart.getPurpose() != null || !mandalaChart.getPurpose().isEmpty()) {
-                            button.setText(mandalaChart.getPurpose());
+                        if (mandalaChart.getPurpose() != null) {
+                            if (!mandalaChart.getPurpose().isEmpty()) {
+                                button.setText(mandalaChart.getPurpose());
+                            } else {
+                                button.setText(purposeNothing);
+                            }
                         } else {
                             button.setText(purposeNothing);
                         }
